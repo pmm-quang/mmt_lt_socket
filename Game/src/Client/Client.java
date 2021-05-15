@@ -41,13 +41,11 @@ public class Client extends JFrame implements Runnable,ActionListener{
 
 
     public Client(String host, String username){
-
-        super("Client");
+        super("Client | Player: " + username);
         this.setSize(770, 600);
         this.getContentPane().setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-
         this.username = username;
         chatServer=host;
         connectToServer();
@@ -195,9 +193,8 @@ public class Client extends JFrame implements Runnable,ActionListener{
                     boxChat.notice(tmp[2], tmp[0]);
 
                 } else if (tmp[0].equals(Key.INVITE.toString())) {
-
-                    int output = JOptionPane.showConfirmDialog(this, "Thông báo",
-                            tmp[2] + " mời bạn chơi game.", JOptionPane.YES_NO_OPTION);
+                    int output = JOptionPane.showConfirmDialog(this, tmp[2] + " mời bạn chơi game.",
+                            "Lời mời từ " + tmp[2], JOptionPane.YES_NO_OPTION);
                     if(output == JOptionPane.YES_OPTION) {
                         sendData(Key.ACCEPT.toString() + ",play");
 
@@ -232,6 +229,10 @@ public class Client extends JFrame implements Runnable,ActionListener{
                         player_score = 0;
                         opponent_score = 0;
                         current_number = 1;
+                        player_score_label.setText("MY SCORE: " + player_score);
+                        player_score_label.setFont(new Font("Consolas", Font.BOLD, 18));
+                        player_score_label.setForeground(Color.RED);
+                        opponent_score_label.setText("ENEMY'S SCORE: " + opponent_score);
                     }
 
                 }else if (tmp[0].equals(Key.EXIT.toString())) {
@@ -300,6 +301,10 @@ public class Client extends JFrame implements Runnable,ActionListener{
             current_number = 1;
             board.createNumberMatrix();
             board.createNumberOfButton();
+            player_score_label.setText("MY SCORE: " + player_score);
+            player_score_label.setFont(new Font("Consolas", Font.BOLD, 18));
+            player_score_label.setForeground(Color.RED);
+            opponent_score_label.setText("ENEMY'S SCORE: " + opponent_score);
             start = false;
         }
     }

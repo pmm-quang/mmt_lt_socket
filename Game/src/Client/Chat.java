@@ -110,7 +110,7 @@ public class Chat extends JPanel {
 
         JScrollPane sp = new JScrollPane(textPane);
         sp.setBounds(0,0,240,280);
-        bt_send = new JButton("Gui");
+        bt_send = new JButton("Gửi");
         bt_send.setBounds(180, 300, 60, 30);
         tf_enterchat = new JTextField(30);
         tf_enterchat.setFont(fo);
