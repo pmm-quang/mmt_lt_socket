@@ -53,14 +53,14 @@ public class Chat extends JPanel {
         }
     }
     public void noticeSocre(String username, int score) {
-        attributeSet = new SimpleAttributeSet();
         try {
+            attributeSet = new SimpleAttributeSet();
             switch (score) {
-                case 10: StyleConstants.setForeground(attributeSet, Color.CYAN);
-                case 20: StyleConstants.setForeground(attributeSet, Color.GREEN);
-                case 30: StyleConstants.setForeground(attributeSet, Color.YELLOW);
-                case 40: StyleConstants.setForeground(attributeSet, Color.MAGENTA);
-                case 50: StyleConstants.setForeground(attributeSet, Color.RED);
+                case 10: StyleConstants.setForeground(attributeSet, Color.CYAN); break;
+                case 20: StyleConstants.setForeground(attributeSet, Color.GREEN); break;
+                case 30: StyleConstants.setForeground(attributeSet, Color.YELLOW); break;
+                case 40: StyleConstants.setForeground(attributeSet, Color.MAGENTA); break;
+                case 50: StyleConstants.setForeground(attributeSet, Color.RED); break;
             }
             doc.insertString(doc.getLength(), username + " đã được " + score + " điểm!\n", attributeSet);
         } catch (BadLocationException e) {

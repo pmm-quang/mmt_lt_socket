@@ -129,7 +129,7 @@ public class Client extends JFrame implements Runnable,ActionListener{
         bt_quit = new JButton("", img_bt_Exit);
         bt_quit.setBackground(Color.RED);
         bt_quit.setBounds(120, 10, img_bt_Exit.getIconWidth(), img_bt_Exit.getIconHeight());
-
+        bt_quit.setVisible(false);
         add(bt_start);
         add(bt_quit);
     }
@@ -206,6 +206,7 @@ public class Client extends JFrame implements Runnable,ActionListener{
                 } else if (tmp[0].equals(Key.ACCEPT.toString())) {
                     start = true;
                     play = true;
+                    bt_quit.setVisible(true);
                     createNewGame();
                     String matrixNumber = "";
                     for (int i = 0; i < SQRT_OF_NUMBER_OF_NUMBERS; i++){
@@ -224,6 +225,7 @@ public class Client extends JFrame implements Runnable,ActionListener{
                             matrix[i][j] = Integer.valueOf(tmp[k]);
                             k++;
                         }
+                        bt_quit.setVisible(true);
                         board.setNumber_matrix(matrix);
                         board.createNumberOfButton();
                         play = true;
@@ -253,6 +255,7 @@ public class Client extends JFrame implements Runnable,ActionListener{
                 } else if (tmp[0].equals(Key.QUIT.toString())) {
                     JOptionPane.showMessageDialog(this , "You win");
                     play = false;
+                    bt_quit.setVisible(false);
                     board.resetButton();
 
                 } else if (tmp[0].equals(Key.WIN.toString())) {
@@ -328,6 +331,7 @@ public class Client extends JFrame implements Runnable,ActionListener{
             if (play) {
                 sendData(Key.QUIT.toString() + ",thoat game," + username);
                 JOptionPane.showMessageDialog(this, "You lose");
+                bt_quit.setVisible(false);
                 play = false;
                 board.resetButton();
             }
