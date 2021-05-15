@@ -1,7 +1,7 @@
 package Client;
 
 enum Key{
-    CHAT, PLAY, GAME, INVITE, LOGIN, QUIT, ACCEPT, EXIT, WIN, HIGHSOCRE;
+    CHAT, PLAY, GAME, INVITE, LOGIN, QUIT, ACCEPT, EXIT, WIN, HIGHSCORE;
 
     public String toString() {
         switch (this) {
@@ -14,7 +14,7 @@ enum Key{
             case ACCEPT: return "ACCEPT";
             case EXIT: return "EXIT";
             case WIN: return "WIN";
-            case HIGHSOCRE: return "HIGHSOCRE";
+            case HIGHSCORE: return "HIGHSCORE";
             default: return null;
         }
     }

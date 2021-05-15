@@ -52,7 +52,7 @@ public class Chat extends JPanel {
             e.printStackTrace();
         }
     }
-    public void noticeSocre(String username, int score) {
+    public void scoreNotify(String username, int score) {
         try {
             attributeSet = new SimpleAttributeSet();
             switch (score) {
