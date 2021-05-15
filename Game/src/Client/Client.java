@@ -24,7 +24,9 @@ public class Client extends JFrame implements Runnable,ActionListener{
     Board board;
     JButton bt_start;
     JButton bt_quit;
-
+    private JLabel player_score_label;
+    private JLabel opponent_score_label;
+    private JLabel background;
 
     Boolean play= false;
     boolean start = false;
@@ -64,6 +66,23 @@ public class Client extends JFrame implements Runnable,ActionListener{
         boxChat.getBt_send().addActionListener(this);
         boxChat.getTf_enterchat().addActionListener(this);
 
+
+        player_score_label = new JLabel("MY SCORE: " + Integer.toString(player_score));
+        player_score_label.setLayout(null);
+        player_score_label.setBounds(550, 100, 250, 20);
+        player_score_label.setFont(new Font("Consolas", Font.BOLD, 18));
+        player_score_label.setForeground(Color.RED);
+        player_score_label.setVisible(true);
+        opponent_score_label = new JLabel("ENEMY'S SCORE: " + Integer.toString(opponent_score));
+        opponent_score_label.setLayout(null);
+        opponent_score_label.setBounds(550, 150, 250, 20);
+        opponent_score_label.setFont(new Font("Consolas", Font.PLAIN, 14));
+        opponent_score_label.setForeground(Color.BLACK);
+        opponent_score_label.setVisible(true);
+        add(player_score_label);
+        add(opponent_score_label);
+
+
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -90,6 +109,9 @@ public class Client extends JFrame implements Runnable,ActionListener{
         bt_start.addActionListener(this);
         bt_quit.addActionListener(this);
 
+
+
+
         //   setSize(700,600);
         setVisible(true);
         setResizable(false);
@@ -114,6 +136,7 @@ public class Client extends JFrame implements Runnable,ActionListener{
 
     public void run(){
         try{
+
             processConnection();
             closeConnection();
         }
@@ -223,6 +246,8 @@ public class Client extends JFrame implements Runnable,ActionListener{
                     current_number = Integer.valueOf(tmp[1]);
                     board.setVisibleButton(i, j);
                     current_number++;
+                    opponent_score++;
+                    opponent_score_label.setText("ENEMY'S SCORE: " + Integer.toString(opponent_score));
                     System.out.println("So tiep theo: " + current_number);
 
                 } else if (tmp[0].equals(Key.QUIT.toString())) {
@@ -275,7 +300,6 @@ public class Client extends JFrame implements Runnable,ActionListener{
     }
 
 
-
     public void actionPerformed(ActionEvent event) {
         StringBuffer buffer = new StringBuffer(2048);
 
@@ -320,7 +344,8 @@ public class Client extends JFrame implements Runnable,ActionListener{
                         buffer.append(Key.GAME.toString() + ",").append(board.getNumber_matrix()[i][j]).append(",").append(i).append(",").append(j);
                         sendData(buffer.toString());
                         current_number++;
-                        player_score ++;
+                        player_score++;
+                        updatePlayerScoreLabel();
                     }
                     board.getArrayButton()[i][j].setAutoscrolls(false);
                     board.getArrayButton()[i][j].setRolloverEnabled(false);
@@ -341,6 +366,36 @@ public class Client extends JFrame implements Runnable,ActionListener{
         }
     }
 
+    private void updatePlayerScoreLabel() {
+        player_score_label.setText("MY SCORE: " + player_score);
+        switch (player_score) {
+            case 10: {
+                player_score_label.setForeground(Color.ORANGE);
+                player_score_label.setFont(new Font("Consolas", Font.BOLD, 20));
+                break;
+            }
+            case 20: {
+                player_score_label.setForeground(Color.YELLOW);
+                player_score_label.setFont(new Font("Consolas", Font.BOLD, 21));
+                break;
+            }
+            case 30: {
+                player_score_label.setForeground(Color.GREEN);
+                player_score_label.setFont(new Font("Consolas", Font.BOLD, 22));
+                break;
+            }
+            case 40: {
+                player_score_label.setForeground(Color.CYAN);
+                player_score_label.setFont(new Font("Consolas", Font.BOLD, 23));
+                break;
+            }
+            case 50: {
+                player_score_label.setForeground(Color.MAGENTA);
+                player_score_label.setFont(new Font("Consolas", Font.BOLD, 28));
+            }
+            default:
+        }
+    }
 
 
     public boolean isWinner() {
