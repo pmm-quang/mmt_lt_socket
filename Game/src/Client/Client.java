@@ -10,8 +10,7 @@ import javax.swing.*;
 
 public class Client extends JFrame implements Runnable,ActionListener{
 
-    private int[][] number_matrix = new int[SQRT_OF_NUMBER_OF_NUMBERS][SQRT_OF_NUMBER_OF_NUMBERS];
-    public static int SQRT_OF_NUMBER_OF_NUMBERS = 5;   //Thêm cái này cho đỡ viết số 10
+    public static int SQRT_OF_NUMBER_OF_NUMBERS = 10;   //Thêm cái này cho đỡ viết số 10
     static int current_number;                        //Số hiện tại cần phải bấm để có điểm
     private int player_score;
     private int opponent_score;
@@ -19,19 +18,16 @@ public class Client extends JFrame implements Runnable,ActionListener{
     public static Boolean check = false;
     private ObjectOutputStream output;
     private ObjectInputStream input;
-    private String message="";//message nay se gui vi tri i,j cua button ma client vua nhan
+    private String message="";
     private String chatServer;
     private Socket client;
     Board board;
     JButton bt_start;
     JButton bt_quit;
 
-    private Square[][] arrayButton;
 
-    //    JButton start;
     Boolean play= false;
     boolean start = false;
-    int xx, yy, x, y;
 
 
     Chat boxChat;
@@ -46,8 +42,6 @@ public class Client extends JFrame implements Runnable,ActionListener{
 
         super("Client");
         this.setSize(770, 600);
-        x = 25;
-        y = 25;
         this.getContentPane().setLayout(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -169,7 +163,7 @@ public class Client extends JFrame implements Runnable,ActionListener{
 
                 System.out.println(username+" nhan: "+message);
                 //phan tich message
-                if (tmp[0].equals("CHAT")) {
+                if (tmp[0].equals(Key.CHAT.toString())) {
 
                     boxChat.receivedMessage(tmp[1], tmp[2]);
 
@@ -224,20 +218,12 @@ public class Client extends JFrame implements Runnable,ActionListener{
                     }
 
                 } else if (tmp[0].equals(Key.GAME.toString())) {
-
-                    if (tmp[1].equals(Integer.toString(current_number))) {
-                        for (int i = 0; i < SQRT_OF_NUMBER_OF_NUMBERS; ++i) {
-                            for (int j = 0; j < SQRT_OF_NUMBER_OF_NUMBERS; ++j) {
-                                if (board.getNumber_matrix()[i][j] == current_number) {
-                                    board.setVisibleButton(i, j);
-                                    break;
-                                }
-                            }
-                        }
-                        ++current_number;
-                        System.out.println("So tiep theo: " + current_number);
-                        //    ++opponent_score;
-                    }
+                    int i = Integer.valueOf(tmp[2]);
+                    int j = Integer.valueOf(tmp[3]);
+                    current_number = Integer.valueOf(tmp[1]);
+                    board.setVisibleButton(i, j);
+                    current_number++;
+                    System.out.println("So tiep theo: " + current_number);
 
                 } else if (tmp[0].equals(Key.QUIT.toString())) {
                     JOptionPane.showMessageDialog(this , "You win");
