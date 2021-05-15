@@ -15,7 +15,7 @@ public class Server {
     public void runServer(){
         try{
             int i = 0;
-            server=new ServerSocket(8989, 2);
+            server=new ServerSocket(8889, 2);
 
             while(true){
                 try{

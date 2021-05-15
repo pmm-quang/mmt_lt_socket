@@ -52,6 +52,21 @@ public class Chat extends JPanel {
             e.printStackTrace();
         }
     }
+    public void noticeSocre(String username, int score) {
+        attributeSet = new SimpleAttributeSet();
+        try {
+            switch (score) {
+                case 10: StyleConstants.setForeground(attributeSet, Color.CYAN);
+                case 20: StyleConstants.setForeground(attributeSet, Color.GREEN);
+                case 30: StyleConstants.setForeground(attributeSet, Color.YELLOW);
+                case 40: StyleConstants.setForeground(attributeSet, Color.MAGENTA);
+                case 50: StyleConstants.setForeground(attributeSet, Color.RED);
+            }
+            doc.insertString(doc.getLength(), username + " đã được " + score + " điểm!\n", attributeSet);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
 
     public JTextField getTf_enterchat() {
         return tf_enterchat;

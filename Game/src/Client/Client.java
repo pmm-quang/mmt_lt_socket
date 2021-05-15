@@ -151,7 +151,7 @@ public class Client extends JFrame implements Runnable,ActionListener{
 
     private void connectToServer(){
         try{
-            client=new Socket(InetAddress.getByName(chatServer),8989);
+            client=new Socket(InetAddress.getByName(chatServer),8889);
 
         }
         catch(Exception e){
@@ -259,6 +259,8 @@ public class Client extends JFrame implements Runnable,ActionListener{
                     JOptionPane.showMessageDialog(this , "You lose");
                     play = false;
                     board.resetButton();
+                } else if (tmp[0].equals(Key.HIGHSOCRE.toString())) {
+                    boxChat.noticeSocre(tmp[2], Integer.valueOf(tmp[1]));
                 }
 
 
@@ -346,6 +348,10 @@ public class Client extends JFrame implements Runnable,ActionListener{
                         current_number++;
                         player_score++;
                         updatePlayerScoreLabel();
+                        if (player_score % 10 == 0) {
+                            sendData(Key.HIGHSOCRE.toString() + "," + player_score);
+                            boxChat.noticeSocre("Bạn", player_score);
+                        }
                     }
                     board.getArrayButton()[i][j].setAutoscrolls(false);
                     board.getArrayButton()[i][j].setRolloverEnabled(false);
